@@ -50,10 +50,6 @@ class MediaControls extends Component<Props, State> {
     isVisible: false,
   };
 
-  // componentDidMount() {
-  // this.fadeOutControls(2000);
-  // }
-
   componentWillReceiveProps(nextProps: Props) {
     if (nextProps.playerState === PLAYER_STATES.ENDED) {
       this.fadeInControls(false);
@@ -61,7 +57,7 @@ class MediaControls extends Component<Props, State> {
   }
 
   onReplay = () => {
-    this.fadeOutControls(2000);
+    this.fadeOutControls();
     this.props.onReplay();
   };
 
@@ -74,7 +70,7 @@ class MediaControls extends Component<Props, State> {
         break;
       }
       case PAUSED: {
-        this.fadeOutControls(2000);
+        this.fadeOutControls();
         break;
       }
       default:
@@ -126,17 +122,18 @@ class MediaControls extends Component<Props, State> {
   toggleControls = () => {
     // value is the last value of the animation when stop animation was called.
     // As this is an opacity effect, I (Charlie) used the value (0 or 1) as a boolean
-    this.state.opacity.stopAnimation((value: number) => {
-      this.setState({ isVisible: !!value });
-      return value ? this.fadeOutControls() : this.fadeInControls();
-    });
+    if (this.state.isVisible) {
+      this.fadeOutControls();
+    } else {
+      this.fadeInControls();
+    }
   };
 
-  fadeOutControls = (delay: number = 0) => {
+  fadeOutControls = () => {
     Animated.timing(this.state.opacity, {
       toValue: 0,
       duration: 200,
-      delay,
+      delay: 0,
     }).start(result => {
       /* I noticed that the callback is called twice, when it is invoked and when it completely finished
       This prevents some flickering */
@@ -152,7 +149,7 @@ class MediaControls extends Component<Props, State> {
       delay: 0,
     }).start(() => {
       if (loop) {
-        this.fadeOutControls(2000);
+        this.fadeOutControls();
       }
     });
   };
