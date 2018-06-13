@@ -122,11 +122,13 @@ class MediaControls extends Component<Props, State> {
   toggleControls = () => {
     // value is the last value of the animation when stop animation was called.
     // As this is an opacity effect, I (Charlie) used the value (0 or 1) as a boolean
-    if (this.state.isVisible) {
-      this.fadeOutControls();
-    } else {
-      this.fadeInControls();
-    }
+    this.state.opacity.stopAnimation(() => {
+      if (this.state.isVisible) {
+        this.fadeOutControls();
+      } else {
+        this.fadeInControls();
+      }
+    });
   };
 
   fadeOutControls = () => {
