@@ -61,7 +61,7 @@ class MediaControls extends Component<Props, State> {
   }
 
   onReplay = () => {
-    this.fadeOutControls(5000);
+    this.fadeOutControls(2000);
     this.props.onReplay();
   };
 
@@ -74,7 +74,7 @@ class MediaControls extends Component<Props, State> {
         break;
       }
       case PAUSED: {
-        this.fadeOutControls(5000);
+        this.fadeOutControls(2000);
         break;
       }
       default:
@@ -135,7 +135,7 @@ class MediaControls extends Component<Props, State> {
   fadeOutControls = (delay: number = 0) => {
     Animated.timing(this.state.opacity, {
       toValue: 0,
-      duration: 300,
+      duration: 200,
       delay,
     }).start(result => {
       /* I noticed that the callback is called twice, when it is invoked and when it completely finished
@@ -148,11 +148,11 @@ class MediaControls extends Component<Props, State> {
     this.setState({ isVisible: true });
     Animated.timing(this.state.opacity, {
       toValue: 1,
-      duration: 300,
+      duration: 200,
       delay: 0,
     }).start(() => {
       if (loop) {
-        this.fadeOutControls(5000);
+        this.fadeOutControls(2000);
       }
     });
   };
