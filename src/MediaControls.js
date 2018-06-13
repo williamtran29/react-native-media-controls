@@ -46,13 +46,13 @@ class MediaControls extends Component<Props, State> {
   };
 
   state = {
-    opacity: new Animated.Value(1),
-    isVisible: true,
+    opacity: new Animated.Value(0),
+    isVisible: false,
   };
 
-  componentDidMount() {
-    this.fadeOutControls(2000);
-  }
+  // componentDidMount() {
+  // this.fadeOutControls(2000);
+  // }
 
   componentWillReceiveProps(nextProps: Props) {
     if (nextProps.playerState === PLAYER_STATES.ENDED) {
