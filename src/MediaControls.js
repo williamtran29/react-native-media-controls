@@ -51,7 +51,7 @@ class MediaControls extends Component<Props, State> {
   };
 
   componentDidMount() {
-    this.fadeOutControls(2000);
+    this.fadeOutControls(0);
   }
 
   componentWillReceiveProps(nextProps: Props) {
