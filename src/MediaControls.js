@@ -69,11 +69,8 @@ class MediaControls extends Component<Props, State> {
     const pressAction =
       playerState === PLAYER_STATES.ENDED ? this.onReplay : this.onPause;
     return (
-      <TouchableOpacity
-        style={[styles.playButton, { backgroundColor: this.props.mainColor }]}
-        onPress={pressAction}
-      >
-        <Image source={icon} tintColor="orange" style={styles.playIcon} />
+      <TouchableOpacity style={[styles.playButton]} onPress={pressAction}>
+        <Image source={icon} tintColor="white" style={styles.playIcon} />
       </TouchableOpacity>
     );
   };

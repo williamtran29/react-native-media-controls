@@ -42,7 +42,10 @@ export default StyleSheet.create({
     alignItems: 'center',
     width: 30,
     height: 30,
+    borderColor: 'white',
+    borderWidth: 2,
     marginRight: 20,
+    borderRadius: 2,
   },
   loadingIcon: {
     marginRight: 20,
