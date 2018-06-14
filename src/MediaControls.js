@@ -6,9 +6,7 @@ import {
   View,
   Text,
   ActivityIndicator,
-  Animated,
   Image,
-  TouchableWithoutFeedback,
   // eslint ignore next $FlowFixMe
 } from 'react-native';
 import Slider from 'react-native-slider';
@@ -29,12 +27,7 @@ type Props = {
   onSeek: Function,
   onSeeking: Function,
 };
-
-type State = {
-  opacity: Object,
-  isVisible: boolean,
-};
-
+type State = {};
 class MediaControls extends Component<Props, State> {
   static defaultProps = {
     isFullScreen: false,
@@ -45,23 +38,7 @@ class MediaControls extends Component<Props, State> {
     onSeeking: noop,
   };
 
-  state = {
-    opacity: new Animated.Value(0),
-    isVisible: false,
-  };
-
-  componentDidMount() {
-    this.fadeOutControls();
-  }
-
-  componentWillReceiveProps(nextProps: Props) {
-    if (nextProps.playerState === PLAYER_STATES.ENDED) {
-      this.fadeInControls(false);
-    }
-  }
-
   onReplay = () => {
-    this.fadeOutControls(2000);
     this.props.onReplay();
   };
 
@@ -70,11 +47,9 @@ class MediaControls extends Component<Props, State> {
     const { PLAYING, PAUSED } = PLAYER_STATES;
     switch (playerState) {
       case PLAYING: {
-        this.cancelAnimation();
         break;
       }
       case PAUSED: {
-        this.fadeOutControls(2000);
         break;
       }
       default:
@@ -85,7 +60,9 @@ class MediaControls extends Component<Props, State> {
     return onPaused(newPlayerState);
   };
 
-  setLoadingView = () => <ActivityIndicator size="large" color="#FFF" />;
+  setLoadingView = () => (
+    <ActivityIndicator style={styles.loadingIcon} size={16} color="#FFF" />
+  );
 
   setPlayerControls = (playerState: PlayerState) => {
     const icon = this.getPlayerStateIcon(playerState);
@@ -96,7 +73,7 @@ class MediaControls extends Component<Props, State> {
         style={[styles.playButton, { backgroundColor: this.props.mainColor }]}
         onPress={pressAction}
       >
-        <Image source={icon} style={styles.playIcon} />
+        <Image source={icon} tintColor="orange" style={styles.playIcon} />
       </TouchableOpacity>
     );
   };
@@ -115,44 +92,6 @@ class MediaControls extends Component<Props, State> {
       default:
         return null;
     }
-  };
-
-  cancelAnimation = () => {
-    this.state.opacity.stopAnimation(() => {
-      this.setState({ isVisible: true });
-    });
-  };
-
-  toggleControls = () => {
-    this.state.opacity.stopAnimation((value: number) => {
-      this.setState({ isVisible: !!value });
-      return value ? this.fadeOutControls() : this.fadeInControls();
-    });
-  };
-
-  fadeOutControls = (delay: number = 0) => {
-    Animated.timing(this.state.opacity, {
-      toValue: 0,
-      duration: 200,
-      delay,
-    }).start(result => {
-      /* I noticed that the callback is called twice, when it is invoked and when it completely finished
-      This prevents some flickering */
-      if (result.finished) this.setState({ isVisible: false });
-    });
-  };
-
-  fadeInControls = (loop: boolean = true) => {
-    this.setState({ isVisible: true });
-    Animated.timing(this.state.opacity, {
-      toValue: 1,
-      duration: 200,
-      delay: 0,
-    }).start(() => {
-      if (loop) {
-        this.fadeOutControls(2000);
-      }
-    });
   };
 
   dragging = (value: number) => {
@@ -180,20 +119,17 @@ class MediaControls extends Component<Props, State> {
       toolbar,
     } = this.props;
 
-    // this let us block the controls
-    if (!this.state.isVisible) return null;
-
     // eslint ignore next $FlowFixMe
     const fullScreenImage = require('./assets/ic_fullscreen.png');
     return (
       <View style={styles.container}>
         <View style={[styles.controlsRow, styles.toolbarRow]}>{toolbar}</View>
-        <View style={[styles.controlsRow]}>
-          {isLoading
-            ? this.setLoadingView()
-            : this.setPlayerControls(playerState)}
-        </View>
         <View style={[styles.controlsRow, styles.progressContainer]}>
+          <View>
+            {isLoading
+              ? this.setLoadingView()
+              : this.setPlayerControls(playerState)}
+          </View>
           <View style={styles.progressColumnContainer}>
             <View style={[styles.timerLabelsContainer]}>
               <Text style={styles.timerLabel}>
@@ -226,15 +162,7 @@ class MediaControls extends Component<Props, State> {
   }
 
   render() {
-    return (
-      <TouchableWithoutFeedback onPress={this.toggleControls}>
-        <Animated.View
-          style={[styles.container, { opacity: this.state.opacity }]}
-        >
-          {this.renderControls()}
-        </Animated.View>
-      </TouchableWithoutFeedback>
-    );
+    return <View style={styles.container}>{this.renderControls()}</View>;
   }
 }
 

@@ -11,7 +11,7 @@ export default StyleSheet.create({
     paddingVertical: 13,
     flexDirection: 'column',
     alignItems: 'center',
-    backgroundColor: 'rgba(45, 59, 62, 0.4)',
+    backgroundColor: 'transparent',
     justifyContent: 'space-between',
     top: 0,
     left: 0,
@@ -40,15 +40,16 @@ export default StyleSheet.create({
   playButton: {
     justifyContent: 'center',
     alignItems: 'center',
-    width: 50,
-    height: 50,
-    borderRadius: 3,
-    borderWidth: 1.5,
-    borderColor: 'rgba(255,255,255,0.5)',
+    width: 30,
+    height: 30,
+    marginRight: 20,
+  },
+  loadingIcon: {
+    marginRight: 20,
   },
   playIcon: {
-    width: 22,
-    height: 22,
+    width: 16,
+    height: 16,
     resizeMode: 'contain',
   },
   replayIcon: {
@@ -90,8 +91,6 @@ export default StyleSheet.create({
   thumb: {
     width: 20,
     height: 20,
-    borderRadius: 50,
     backgroundColor: 'white',
-    borderWidth: 3,
   },
 });
