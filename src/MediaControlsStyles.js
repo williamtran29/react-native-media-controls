@@ -8,7 +8,7 @@ export default StyleSheet.create({
     position: 'absolute',
     flex: 1,
     paddingHorizontal: 20,
-    paddingVertical: 13,
+    paddingTop: 10,
     flexDirection: 'column',
     alignItems: 'center',
     backgroundColor: 'transparent',
@@ -19,7 +19,6 @@ export default StyleSheet.create({
     right: 0,
   },
   controlsRow: {
-    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
     alignSelf: 'stretch',
@@ -43,9 +42,9 @@ export default StyleSheet.create({
     width: 30,
     height: 30,
     borderColor: 'white',
-    borderWidth: 2,
+    borderWidth: 1,
     marginRight: 20,
-    borderRadius: 2,
+    borderRadius: 3,
   },
   loadingIcon: {
     marginRight: 20,
@@ -63,7 +62,6 @@ export default StyleSheet.create({
   progressContainer: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
-    marginBottom: -25,
   },
   progressColumnContainer: {
     flex: 1,

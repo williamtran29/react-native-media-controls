@@ -151,7 +151,7 @@ class MediaControls extends Component<Props, State> {
             style={styles.fullScreenContainer}
             onPress={onFullScreen}
           >
-            <Image source={fullScreenImage} />
+            <Image style={styles.fullScreenImage} source={fullScreenImage} />
           </TouchableOpacity>
         </View>
       </View>
