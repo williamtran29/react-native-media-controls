@@ -59,7 +59,7 @@ class MediaControls extends Component<Props, State> {
   }
 
   onReplay = () => {
-    this.fadeOutControls(2000);
+    this.fadeOutControls(5000);
     this.props.onReplay();
   };
 
@@ -72,7 +72,7 @@ class MediaControls extends Component<Props, State> {
         break;
       }
       case PAUSED: {
-        this.fadeOutControls(2000);
+        this.fadeOutControls(5000);
         break;
       }
       default:
@@ -131,7 +131,7 @@ class MediaControls extends Component<Props, State> {
       delay: 0,
     }).start(() => {
       if (loop) {
-        this.fadeOutControls(2000);
+        this.fadeOutControls(5000);
       }
     });
   };
